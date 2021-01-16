@@ -13,38 +13,51 @@ public class MergeSortV4 {
             listOfList[i] = a;
         }
 
-        merge(listOfList.length, listOfList, 0, 0);
+        merge(listOfList, listOfList.length, listOfList.length, 0, 0);
         System.out.println("Done");
         System.out.println(listOfList[0]);
 
     }
 
-    // compare, sort and merge two chunks
-    private static void merge(int len, int[][] listOfList, int currentRunnerIndex, int currentMergeIndex) {
-        System.out.println("\nlen :: "+len+"\ncurrentMergeIndex :: "+currentMergeIndex+"\ncurrentRunnerIndex :: "+currentRunnerIndex+"\nlist :: ["+listOfList+"]\t"+display(listOfList[currentRunnerIndex]));
-        // take two chunks. compare and merge to new list
-        int[] c = null;
-        int[] a = listOfList[currentRunnerIndex];
+    private static void merge(int[][] listOfList, int totalLen, int currentLength,   int currentRunnerIndex, int currentMergeIndex) {
+        if( currentRunnerIndex <= currentLength){
+            // Horizontal movement
+            int[] c = null;
+            int[] a = listOfList[currentRunnerIndex];
 
-        if (currentRunnerIndex == len-1) {
-            c = a;
-        } else {
-            int[] b = listOfList[currentRunnerIndex + 1];
-            c = compareAndSort(a, b);
+            // if last element
+            if (currentRunnerIndex == currentLength-1) {
+                c = a;
+                System.out.println("C :: " + display(c));
+
+            } else {
+                int[] b = listOfList[currentRunnerIndex + 1];
+                c = compareAndSort(a, b);
+            }
+            listOfList[currentMergeIndex] = c;
         }
-        listOfList[currentMergeIndex] = c;
-        // but how many times ?
-        if (listOfList[0].length < len) {
-            merge(len, listOfList, currentRunnerIndex + 2, ++currentMergeIndex);
-        }else{
+
+        currentMergeIndex = currentMergeIndex +1;
+        currentRunnerIndex = currentRunnerIndex +2;
+        // stop condition
+        if( listOfList[0].length == totalLen){
             return;
         }
+        // forward
+        if( currentRunnerIndex >= currentLength){
+            currentMergeIndex =0;
+            currentRunnerIndex = 0;
+            currentLength = totalLen / listOfList[0].length + totalLen % listOfList[0].length;
+        }
+        merge(listOfList, totalLen, currentLength, currentRunnerIndex, currentMergeIndex);
     }
 
     private static int[] compareAndSort(int[] a, int[] b) {
+        System.out.println("Compare And Sort [" + display(a) + "], [" + display(b) + "]");
         int i = 0;
         int j = 0;
         int k = 0;
+
         int[] c = new int[a.length + b.length];
         while (i < a.length && j < b.length) {
             if (a[i] > b[j]) {
@@ -68,18 +81,19 @@ public class MergeSortV4 {
             k++;
             j++;
         }
+        System.out.println("C :: " + display(c));
         return c;
     }
 
     private static String display(int[] arr) {
         String value = "";
-        if(arr !=null) {
+        if (arr != null) {
             if (arr != null) {
                 for (int i = 0; i < arr.length; i++) {
                     value += arr[i] + " ";
                 }
             }
-        }else{
+        } else {
             System.out.println("-empty-");
         }
         return value;
