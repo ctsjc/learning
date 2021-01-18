@@ -8,11 +8,12 @@ public class ShowTree {
 
         ShowTree showTree=new ShowTree();
         showTree.tree.createTree();
-        for (int i = 0; i < 3; i++) {
-            showTree.tree.addNode();
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("\n\nAdding "+(i));
+            showTree.tree.addNode(i);
         }
         System.out.println("---- Tree ----");
-        showTree.tree.display(showTree.tree.head);
+       /// showTree.tree.display(showTree.tree.head);
         System.out.println(showTree.tree.head);
     }// main
 }

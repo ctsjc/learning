@@ -17,12 +17,16 @@ public class Node {
         myIndex = index++;
     }
 
+    public Node(int value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
-        return "Node{" +
-                "" + myIndex +
-                ", left=" + left +
-                ", right=" + right +
+        return "{ " +value+
+                " , " + myIndex +
+                (left !=null ?", left=" + left:"") +
+                (right !=null ?", right=" + right : "")+
                 '}';
     }
 }

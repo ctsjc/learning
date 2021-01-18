@@ -1,99 +1,113 @@
 package com.example.tree;
 
 public class Tree {
-    Node head = new Node();
-    Node createTree(){
+    Node head = new Node(0);
+
+
+    Node createTree() {
         return head;
 
     }
 
-    void addNode(){
+    void addNode(int value) {
         // where to add the new node ?
         // check whats the depth of current tree
         int depth = getDepth();
-
-        int count = getBredth(head, 0);
+        Integer count = 1;
+        Payload p = new Payload();
+        p.count = 1;
+        count = totalNodeCount(head, p);
         double space = 2 * Math.pow(2, depth) - 1;
-        System.out.println("Depth :: "+depth);
-        System.out.println("Count :: "+count);
-        System.out.println("Space :: "+space);
-        if( space < count){
+        System.out.println("Depth :: " + depth);
+        System.out.println("Count :: " + p.count);
+        System.out.println("Space :: " + space);
+        if (space <= count) {
             // There is need to increase depth;
-            increaseDepth();
-        }
+            increaseDepth(value);
+        } else {
             // Space is available.
             // find the space and add the element
-        findAndAddNode(head);
+
+            findAndAddNode(head, value, p);
+        }
+        System.out.println(head);
     }
 
-    private void increaseDepth() {
-        Node runner=head;
+    private void increaseDepth(int value) {
+        Node runner = head;
         // Assumption: First leaf node is always at the left most end of tree
-        while( runner.getLeft() != null ){
+        while (runner.getLeft() != null) {
             runner = runner.left;
         }
-        runner.setLeft(new Node());
+        System.out.println("Increasing depth " + value);
+        runner.setLeft(new Node(value));
     }
 
-    int getDepth(){
-        Node runner=head;
-        int depth =0;
+    int getDepth() {
+        Node runner = head;
+        int depth = 0;
         // Assumption: First leaf node is always at the left most end of tree
-        while( runner.getLeft() != null ){
+        while (runner.getLeft() != null) {
             runner = runner.left;
             depth++;
         }
         return depth;
     }
 
-    int getBredth(Node node, int count){
-        if( node == null || node.left == null && node.right == null){
-            return count;
+    int totalNodeCount(Node node, Payload payload) {
+        if (node.left != null) {
+            payload.count = payload.count + 1;
+            totalNodeCount(node.getLeft(), payload);
         }
-        else{
-            count=count+1;
-            getBredth(node.getLeft(), count);
-            count=count+1;
-            getBredth(node.getRight(), count);
+        if (node.right != null) {
+            payload.count = payload.count + 1;
+            totalNodeCount(node.getRight(), payload);
         }
-        return count;
+        return payload.count;
     }
 
-    Node findAndAddNode(Node node){
-        if( node.left == null){
-            System.out.println("Adding Left");
-            node.setLeft(new Node());
+    // Issue is, You Recursion dont know that the element is already added.
+    Node findAndAddNode(Node node, int value, Payload payload) {
+        System.out.println("Node :: "+node);
+        if(!payload.isRequired )
+            return node;
+        if (node.left == null) {
+            System.out.println("Adding Left " + node.getMyIndex());
+            node.setLeft(new Node(value));
+            payload.isRequired=false;
             return node.getLeft();
         }
-        if( node.right == null){
-            System.out.println("Adding Right ");
-            node.setRight(new Node());
+        else if (node.right == null) {
+            System.out.println("Adding Right " + node.getMyIndex());
+            node.setRight(new Node(value));
+            payload.isRequired=false;
             return node.getRight();
         }
-        else{
-            System.out.println("findAndAddNode "+node);
-            findAndAddNode(node.getLeft());
-            findAndAddNode(node.getRight());
+        else {
+            System.out.println("Searching child of  " + node);
+            findAndAddNode(node.getLeft(), value , payload);
+            findAndAddNode(node.getRight(), value, payload);
             return node;
         }
     }
 
-    void display(Node node){
+    void display(Node node) {
         System.out.println(getDepth());
-        System.out.println(getBredth(node,0));
-        for(int i=0;i< getDepth(); i++){
-            display(node, i, 0 );
+        // System.out.println(totalNodeCount(node, 0));
+        for (int i = 0; i < getDepth(); i++) {
+            display(node, i, 0);
         }
     }
 
     private void display(Node node, int level, int currentLevel) {
-        if( level == currentLevel){
+        if (level == currentLevel) {
             System.out.println(node.getMyIndex());
             return;
-        }else{
-            currentLevel=currentLevel+1;
+        } else {
+            currentLevel = currentLevel + 1;
             display(node.getLeft(), level, currentLevel);
             display(node.getRight(), level, currentLevel);
         }
     }
+
 }
