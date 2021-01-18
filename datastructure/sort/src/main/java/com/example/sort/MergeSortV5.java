@@ -1,4 +1,4 @@
-package com.example;
+package com.example.sort;
 
 public class MergeSortV5 {
     public static void main(String[] args) {

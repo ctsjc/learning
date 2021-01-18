@@ -1,4 +1,4 @@
-package com.example;
+package com.example.sort;
 
 /**
  * in previous example we divide sort from left to right.
