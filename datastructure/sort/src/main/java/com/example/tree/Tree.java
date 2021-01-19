@@ -1,7 +1,7 @@
 package com.example.tree;
 
 public class Tree {
-    Node head = new Node(0);
+    Node head = new Node(0,0);
 
 
     Node createTree() {
@@ -40,7 +40,7 @@ public class Tree {
             runner = runner.left;
         }
         System.out.println("Increasing depth " + value);
-        runner.setLeft(new Node(value));
+        runner.setLeft(new Node(value, getDepth()+1));
     }
 
     int getDepth() {
@@ -69,22 +69,35 @@ public class Tree {
     // Issue is, You Recursion dont know that the element is already added.
     Node findAndAddNode(Node node, int value, Payload payload) {
         System.out.println("Node :: "+node);
+        // Get Current Level
+        int level = node.level;
+        int depth = getDepth();
+
+        if(level == depth){
+            System.out.println("Caution : Level limit is breached.");
+            return node;
+        }
         if(!payload.isRequired )
             return node;
         if (node.left == null) {
+
+
+
+
             System.out.println("Adding Left " + node.getMyIndex());
-            node.setLeft(new Node(value));
+            node.setLeft(new Node(value, getDepth()));
             payload.isRequired=false;
             return node.getLeft();
         }
         else if (node.right == null) {
             System.out.println("Adding Right " + node.getMyIndex());
-            node.setRight(new Node(value));
+            node.setRight(new Node(value, getDepth()));
             payload.isRequired=false;
             return node.getRight();
         }
         else {
             System.out.println("Searching child of  " + node);
+            // but before going down, check height is breached or not ?
             findAndAddNode(node.getLeft(), value , payload);
             findAndAddNode(node.getRight(), value, payload);
             return node;

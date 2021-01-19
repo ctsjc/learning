@@ -10,21 +10,22 @@ public class Node {
     Node right;
     int value;
     //int count;
-    //int depth;
+    int level;
     static int index;
     int myIndex;
     public Node() {
         myIndex = index++;
     }
 
-    public Node(int value) {
+    public Node(int value, int level) {
         this.value = value;
+        this.level= level;
     }
 
     @Override
     public String toString() {
         return "{ " +value+
-                " , " + myIndex +
+                " , level :: " + level +
                 (left !=null ?", left=" + left:"") +
                 (right !=null ?", right=" + right : "")+
                 '}';

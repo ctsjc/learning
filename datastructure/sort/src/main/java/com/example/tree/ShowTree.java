@@ -8,7 +8,7 @@ public class ShowTree {
 
         ShowTree showTree=new ShowTree();
         showTree.tree.createTree();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 12; i++) {
             System.out.println("\n\nAdding "+(i));
             showTree.tree.addNode(i);
         }
