@@ -1,0 +1,2 @@
+docker build -t service2 .
+docker run -it -p8081:8081 service2:latest
