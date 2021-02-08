@@ -30,6 +30,7 @@ public class Controller1 {
             responseEntity = restTemplate.getForEntity(uriComponents.toUriString(), String.class);
         }catch (Exception e){
             System.out.println("Exception");
+            e.printStackTrace();
         }
         return responseEntity;
     }
