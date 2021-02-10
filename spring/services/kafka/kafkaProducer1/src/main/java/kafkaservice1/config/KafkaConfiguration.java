@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfiguration {
-/*    @Value(value = "${kafka.bootstrapAddress}")
+   @Value(value = "${kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
     @Bean
@@ -24,6 +24,7 @@ public class KafkaConfiguration {
 
     @Bean
     public NewTopic topic1(){
-        return new NewTopic("mytopic", 1, (short)1);
-    }*/
+        System.out.println("\nCreating Topic ");
+        return new NewTopic("mytopic", 5, (short)2);
+    }
 }
