@@ -16,6 +16,7 @@ public class JController {
     SendMessageUtil sendMessageUtil;
     @PostMapping("/sendMessage")
     public String postMessage(@RequestParam(defaultValue = "Jay Shree Ram ") String someValue){
+        System.out.println("\n\n\n\n\nNew Request Recieved\n\n\n");
         sendMessageUtil.sendMessage(someValue);
         String timeStamp = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now());
 

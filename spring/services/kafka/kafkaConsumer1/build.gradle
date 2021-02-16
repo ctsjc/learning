@@ -1,0 +1,41 @@
+
+plugins {
+    id 'com.google.cloud.tools.jib' version '2.7.1'
+
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "https://repo.spring.io/milestone" }
+     maven { url "https://repo.spring.io/snapshot" }
+     maven { url "https://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'2.5.0-SNAPSHOT'
+    compile group: 'org.apache.kafka', name: 'kafka-streams', version:'2.7.0'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-bus', version:'3.0.2-SNAPSHOT'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-stream', version:'3.1.1-SNAPSHOT'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-kafka', version:'3.1.1-SNAPSHOT'
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-kafka-streams', version:'3.1.1-SNAPSHOT'
+    compile group: 'org.springframework.kafka', name: 'spring-kafka', version:'2.7.0-M1'
+    compile group: 'org.projectlombok', name: 'lombok', version:'1.18.18'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'2.5.0-SNAPSHOT'
+    testCompile group: 'org.springframework.cloud', name: 'spring-cloud-stream', version:'3.1.1-SNAPSHOT', classifier:'test-binder'
+    testCompile group: 'org.springframework.kafka', name: 'spring-kafka-test', version:'2.7.0-M1'
+}

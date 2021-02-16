@@ -14,6 +14,7 @@ public class Controller {
     MessageService messageService;
     @GetMapping
     public List<String> getMessages(){
+        System.out.println("\n\n\n\n New Get Request is received ......\n\n\n\n");
         List<String> list=null;
         return messageService.getList();
     }
