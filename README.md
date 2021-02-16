@@ -46,5 +46,8 @@ k expose deployment jsun2 --type=NodePort --port=8081
 
 minikube service --url jsun
 
+
+consumer  
+ gradle jib --image=iamjc321/consumer
   
 `
