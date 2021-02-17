@@ -14,20 +14,22 @@ public class SendMessageUtil {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
     @Value("${kafka.topicName}")
-    private String topicName="topicName";
+    private String topicName;
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message);
 
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             @Override
             public void onFailure(Throwable throwable) {
-                System.out.println("Unable to send the message "+message+" due to "+throwable.getLocalizedMessage());
+                System.out.println("Unable to send the message " + message + " due to " + throwable.getLocalizedMessage());
             }
 
             @Override
             public void onSuccess(SendResult<String, String> stringStringSendResult) {
-                System.out.println("Sent Message : "+message+" with offset "+stringStringSendResult.getRecordMetadata().offset()+" \t]");
+                System.out.println("\nRecordMetadata :: " + stringStringSendResult.getRecordMetadata());
+                System.out.println("\nProducerRecord :: " + stringStringSendResult.getProducerRecord());
+                System.out.println("Sent Message : " + message + " with offset " + stringStringSendResult.getRecordMetadata().offset() + " \t]");
             }
         });
     }

@@ -12,18 +12,14 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfiguration {
-   /* @Value(value = "${kafka.bootstrapAddress}")
+    @Value(value = "${spring.kafka.bootstrapAddress}")
     private String bootstrapAddress;
 
     @Bean
-    public KafkaAdmin kafkaAdmin(){
+    public KafkaAdmin kafkaAdmin() {
+        System.out.println("Configuring my Kafka Admin ...................");
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new KafkaAdmin(configs);
     }
-
-    @Bean
-    public NewTopic topic1(){
-        return new NewTopic("mytopic", 1, (short)1);
-    }*/
 }

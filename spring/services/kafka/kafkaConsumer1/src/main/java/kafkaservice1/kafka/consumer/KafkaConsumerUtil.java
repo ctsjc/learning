@@ -15,7 +15,7 @@ public class KafkaConsumerUtil {
     // TODO you have to change the group id to get message in consumer if running
     @KafkaListener(topics = "${kafka.topicName}", groupId = "124")
     public void listenGroupFoo(String message) {
-        System.out.println("Received Message in group foo: " + message);
+        System.out.println("\n\n\nReceived Message in group foo: " + message);
         updateMessageArray.updateArray(message);
     }
 }
